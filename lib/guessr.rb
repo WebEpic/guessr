@@ -49,8 +49,9 @@ module Guessr
       elsif self.last_guess < self.answer
         puts "Too low!"
       else
-        puts "You win!"
+        puts "You win! 100 points"
         self.update(finished: true)
+        self.player.update(score: self.player.score+100)
       end
     end
   end
@@ -60,3 +61,5 @@ end
 
 menu = Guessr::Menu.new
 menu.run
+
+## Turn and Menu Classes

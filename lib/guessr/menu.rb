@@ -14,6 +14,7 @@ module Guessr
         result = gets.chomp
       end
       @player = Player.find_or_create_by(name: result)
+      view_score_board
       # puts "Please choose a player: "
       # Player.find_each do |p|
       #   puts "#{p.id} -> #{p.name}"
@@ -24,6 +25,23 @@ module Guessr
       #   result = gets.chomp
       # end
       # @player = Player.find(result.to_i)
+    end
+
+    def view_score_board
+      puts "Want to see how you rank against other players? View Score Board: (y/n)?"
+        result = gets.chomp
+      until result =~ /^[yn]$/i
+        puts "Please choose yes (y) or no (n)."
+        result = gets.chomp
+      end
+      if result == "y"
+        Player.order(score: :desc).each do |player|
+        puts 
+        puts player.name + " " + player.score.to_s
+      end
+      else
+        game.play
+      end
     end
 
     def choose_game
